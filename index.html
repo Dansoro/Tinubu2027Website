@@ -403,6 +403,9 @@
   .h-2\.5 {
     height: calc(var(--spacing) * 2.5);
   }
+  .h-3\.5 {
+    height: calc(var(--spacing) * 3.5);
+  }
   .h-4 {
     height: calc(var(--spacing) * 4);
   }
@@ -453,6 +456,9 @@
   }
   .w-2\.5 {
     width: calc(var(--spacing) * 2.5);
+  }
+  .w-3\.5 {
+    width: calc(var(--spacing) * 3.5);
   }
   .w-4 {
     width: calc(var(--spacing) * 4);
@@ -566,6 +572,9 @@
   .justify-center {
     justify-content: center;
   }
+  .gap-1\.5 {
+    gap: calc(var(--spacing) * 1.5);
+  }
   .gap-2 {
     gap: calc(var(--spacing) * 2);
   }
@@ -602,6 +611,12 @@
     --tw-space-y-reverse: 0;
     margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));
     margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  .gap-x-4 {
+    column-gap: calc(var(--spacing) * 4);
+  }
+  .gap-y-1 {
+    row-gap: var(--spacing);
   }
   .overflow-hidden {
     overflow: hidden;
@@ -1153,6 +1168,9 @@
       .hover\:bg-white\/20:hover {
         background-color: color-mix(in oklab, var(--color-white) 20%, transparent);
       }
+    }
+    .hover\:text-gold:hover {
+      color: var(--color-gold);
     }
     .hover\:text-white:hover {
       color: var(--color-white);
@@ -2182,6 +2200,16 @@
       <div class="text-center">
         <p class="text-sm">Supporters' website · Not an official APC or government site · © 2026</p>
         <p class="text-xs mt-2 text-white/50">Designed &amp; developed by <span class="text-gold font-semibold">Shamsuddeen Danlami Muhammad</span></p>
+        <div class="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-white/50">
+          <a href="mailto:shamsdanlami2@gmail.com" class="inline-flex items-center gap-1.5 hover:text-gold transition">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            shamsdanlami2@gmail.com
+          </a>
+          <a href="tel:+2348065388687" class="inline-flex items-center gap-1.5 hover:text-gold transition">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.3a1 1 0 01.95.68l1.5 4.5a1 1 0 01-.5 1.21l-2.26 1.13a11 11 0 005.52 5.52l1.13-2.26a1 1 0 011.21-.5l4.5 1.5a1 1 0 01.68.95V19a2 2 0 01-2 2h-1C9.72 21 3 14.28 3 6V5z"/></svg>
+            +234 806 538 8687
+          </a>
+        </div>
       </div>
       <div class="flex gap-4 text-sm">
         <a href="#" class="hover:text-white">Facebook</a>
@@ -2271,8 +2299,10 @@
           if (res.ok && String(out.success) !== 'false') {
             form.reset();
             say('Thank you! Welcome to the movement. 🇳🇬', true);
+          } else if (/activat/i.test(out.message || '')) {
+            say('Form not activated yet — the site owner must click "Activate Form" in the FormSubmit email, then try again.', false);
           } else {
-            say('Sorry, something went wrong. Please try again shortly.', false);
+            say(out.message || 'Sorry, something went wrong. Please try again shortly.', false);
           }
         } catch (err) {
           say('Network problem — please check your connection and try again.', false);
