@@ -16,6 +16,7 @@
     --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
+    --color-red-300: oklch(80.8% 0.114 19.571);
     --color-slate-50: oklch(98.4% 0.003 247.858);
     --color-slate-100: oklch(96.8% 0.007 247.896);
     --color-slate-300: oklch(86.9% 0.022 252.894);
@@ -378,6 +379,9 @@
   .inline-flex {
     display: inline-flex;
   }
+  .table {
+    display: table;
+  }
   .aspect-\[4\/3\] {
     aspect-ratio: 4/3;
   }
@@ -398,6 +402,9 @@
   }
   .h-2\.5 {
     height: calc(var(--spacing) * 2.5);
+  }
+  .h-4 {
+    height: calc(var(--spacing) * 4);
   }
   .h-5 {
     height: calc(var(--spacing) * 5);
@@ -446,6 +453,9 @@
   }
   .w-2\.5 {
     width: calc(var(--spacing) * 2.5);
+  }
+  .w-4 {
+    width: calc(var(--spacing) * 4);
   }
   .w-5 {
     width: calc(var(--spacing) * 5);
@@ -520,6 +530,9 @@
   .animate-pulse {
     animation: var(--animate-pulse);
   }
+  .cursor-pointer {
+    cursor: pointer;
+  }
   .columns-2 {
     columns: 2;
   }
@@ -543,6 +556,9 @@
   }
   .items-end {
     align-items: flex-end;
+  }
+  .items-start {
+    align-items: flex-start;
   }
   .justify-between {
     justify-content: space-between;
@@ -952,6 +968,9 @@
   .text-naija-600 {
     color: var(--color-naija-600);
   }
+  .text-red-300 {
+    color: var(--color-red-300);
+  }
   .text-slate-500 {
     color: var(--color-slate-500);
   }
@@ -1003,6 +1022,9 @@
   .antialiased {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+  .accent-\[\#d4a017\] {
+    accent-color: #d4a017;
   }
   .opacity-0 {
     opacity: 0%;
@@ -1164,6 +1186,12 @@
   .focus\:outline-none:focus {
     --tw-outline-style: none;
     outline-style: none;
+  }
+  .disabled\:cursor-wait:disabled {
+    cursor: wait;
+  }
+  .disabled\:opacity-60:disabled {
+    opacity: 60%;
   }
   @media (width >= 40rem) {
     .sm\:top-6 {
@@ -2124,14 +2152,22 @@
         <h2 class="mt-3 font-display font-extrabold text-4xl lg:text-5xl leading-tight">Be part of the Renewed Hope movement.</h2>
         <p class="mt-5 text-white/70 text-lg">Sign up to volunteer, receive campaign updates and find events near you.</p>
       </div>
-      <form id="joinForm" class="reveal glass rounded-3xl p-8 space-y-4">
-        <input required name="name" placeholder="Full name" class="w-full rounded-xl bg-white/10 border border-white/15 px-4 py-3 placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-gold" />
-        <input required type="tel" name="phone" placeholder="Phone number" class="w-full rounded-xl bg-white/10 border border-white/15 px-4 py-3 placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-gold" />
-        <select required name="state" id="stateSelect" class="w-full rounded-xl bg-white/10 border border-white/15 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-gold">
-          <option value="" class="text-ink">Select your state</option>
+      <form id="joinForm" class="reveal glass rounded-3xl p-8 space-y-4" novalidate>
+        <input required name="name" autocomplete="name" maxlength="80" placeholder="Full name *" class="w-full rounded-xl bg-white/10 border border-white/15 px-4 py-3 placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-gold" />
+        <input required type="tel" name="phone" autocomplete="tel" maxlength="20" placeholder="Phone number *" class="w-full rounded-xl bg-white/10 border border-white/15 px-4 py-3 placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-gold" />
+        <input type="email" name="email" autocomplete="email" maxlength="100" placeholder="Email (optional)" class="w-full rounded-xl bg-white/10 border border-white/15 px-4 py-3 placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-gold" />
+        <select required name="state" id="stateSelect" class="w-full rounded-xl bg-white/10 border border-white/15 px-4 py-3 placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-gold text-white">
+          <option value="" class="text-ink">Select your state *</option>
         </select>
-        <button class="w-full py-4 rounded-xl bg-gold text-ink font-bold hover:brightness-110 transition">Join Now</button>
-        <p id="thanks" class="hidden text-center text-naija-100 font-medium">Thank you! Welcome to the movement. 🇳🇬</p>
+        <input name="lga" maxlength="60" placeholder="Local Government Area (optional)" class="w-full rounded-xl bg-white/10 border border-white/15 px-4 py-3 placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-gold" />
+        <!-- Honeypot: hidden from people, bots fill it -->
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hidden" />
+        <label class="flex items-start gap-3 text-sm text-white/75 cursor-pointer">
+          <input required type="checkbox" name="consent" value="Yes" class="mt-1 w-4 h-4 accent-[#d4a017]" />
+          <span>I agree to be contacted about the campaign and for my details to be stored for that purpose.</span>
+        </label>
+        <button id="joinBtn" type="submit" class="w-full py-4 rounded-xl bg-gold text-ink font-bold hover:brightness-110 transition disabled:opacity-60 disabled:cursor-wait">Join Now</button>
+        <p id="formMsg" class="hidden text-center font-medium" role="status"></p>
       </form>
     </div>
   </section>
@@ -2191,12 +2227,60 @@
     const sel = document.getElementById('stateSelect');
     states.forEach(s => sel.insertAdjacentHTML('beforeend', `<option class="text-ink">${s}</option>`));
 
-    // Form (front-end only — connect to Google Forms, Formspree or your backend)
-    document.getElementById('joinForm').onsubmit = e => {
-      e.preventDefault();
-      e.target.reset();
-      document.getElementById('thanks').classList.remove('hidden');
-    };
+    // ===== JOIN FORM → sent to your email via FormSubmit (no database) =====
+    const FORM_ENDPOINT = 'https://formsubmit.co/ajax/shamsdanlami2@gmail.com';
+
+    (() => {
+      const form = document.getElementById('joinForm');
+      const btn = document.getElementById('joinBtn');
+      const msg = document.getElementById('formMsg');
+      const say = (text, ok) => {
+        msg.textContent = text;
+        msg.className = 'text-center font-medium ' + (ok ? 'text-naija-100' : 'text-red-300');
+      };
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        const d = new FormData(form);
+        const phone = (d.get('phone') || '').replace(/[\s-]/g, '');
+        if (!d.get('name').trim() || !d.get('state')) return say('Please fill in your name and state.', false);
+        if (!/^(\+?234|0)[789][01]\d{8}$/.test(phone)) return say('Please enter a valid Nigerian phone number.', false);
+        if (!d.get('consent')) return say('Please tick the consent box to continue.', false);
+        if (d.get('website')) return say('Thank you! Welcome to the movement. 🇳🇬', true); // bot trap
+
+        const data = {
+          'Full Name': d.get('name').trim(),
+          'Phone': phone,
+          'Email': d.get('email') || '-',
+          'State': d.get('state'),
+          'LGA': d.get('lga') || '-',
+          'Consent': 'Yes',
+          '_subject': 'New Volunteer: ' + d.get('name').trim() + ' (' + d.get('state') + ')',
+          '_template': 'table',
+          '_captcha': 'false'
+        };
+        if (d.get('email')) data._replyto = d.get('email');
+
+        btn.disabled = true; btn.textContent = 'Submitting…';
+        try {
+          const res = await fetch(FORM_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(data)
+          });
+          const out = await res.json().catch(() => ({}));
+          if (res.ok && String(out.success) !== 'false') {
+            form.reset();
+            say('Thank you! Welcome to the movement. 🇳🇬', true);
+          } else {
+            say('Sorry, something went wrong. Please try again shortly.', false);
+          }
+        } catch (err) {
+          say('Network problem — please check your connection and try again.', false);
+        } finally {
+          btn.disabled = false; btn.textContent = 'Join Now';
+        }
+      });
+    })();
 
     // Slider: autoplay, arrows, dots, swipe, pause on hover
     (() => {

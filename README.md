@@ -86,6 +86,29 @@ To edit directly on GitHub: open `index.html` in the repo → click the ✏️ p
 
 ---
 
+## 7. "Join" sign-ups arrive in your email (no database)
+
+The **Join Now** form is already connected. Every sign-up is emailed to **shamsdanlami2@gmail.com**
+as a neat table (name, phone, email, state, LGA), using the free service FormSubmit.
+
+**One-time activation (do this once, right after the site is live):**
+1. Open your live site and fill the Join form yourself as a test.
+2. Check your Gmail (also check **Spam/Promotions**) for an email from **FormSubmit** asking you to confirm.
+3. Click **Activate Form**. Done — every sign-up from now on lands in your inbox.
+
+**Tips**
+- Create a Gmail label/filter for subject "New Volunteer" to keep them organised.
+- After activation, FormSubmit emails you a private random code. You can replace your email in `index.html`
+  (search `formsubmit.co/ajax/`) with that code to hide your email address from the page source.
+- To change the receiving email: search `formsubmit.co/ajax/` in `index.html`, replace the email, upload, and activate again.
+
+**Built-in protection:** Nigerian phone number check, required consent box, and a hidden spam trap for bots.
+
+**Privacy:** you are collecting names and phone numbers. Keep these emails private, only share with people
+who need them, and delete details when someone asks — in line with the Nigeria Data Protection Act 2023.
+
+---
+
 ## 6. Troubleshooting
 
 | Problem | Fix |
@@ -93,4 +116,5 @@ To edit directly on GitHub: open `index.html` in the repo → click the ✏️ p
 | Photos don't show | Make sure the photos are in the same place as `index.html` in the repo, and the names match exactly (lowercase, `.jpg`). |
 | Old version still showing | Press **Ctrl + F5**, or check Vercel → Deployments that the latest one is "Ready". |
 | Vercel name error | Project name must be lowercase: `tinubu-2027-website`. |
+| No sign-up emails arriving | Activate the form first (section 7), and check your Spam folder. |
 | Page looks unstyled | Don't remove the big `<style>` block at the top of `index.html` — it contains the Tailwind design. |
